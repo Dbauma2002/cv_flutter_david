@@ -15,6 +15,12 @@ class _LoginPageState extends State<LoginPage> {
 
   void _login() {
     if (_formKey.currentState!.validate()) {
+      if (_identifier.text.trim() != 'admin' || _password.text != '1234') {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Identifiant ou mot de passe incorrect')),
+        );
+        return;
+      }
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const MainNavigation()),
       );
@@ -74,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 24),
                       SizedBox(width: double.infinity, height: 52, child: FilledButton.icon(onPressed: _login, icon: const Icon(Icons.login), label: const Text('Se connecter'))),
                       const SizedBox(height: 12),
-                      const Text('Identifiant et mot de passe au choix', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                      const Text('Identifiant et mot de passe : admin / 1234', style: TextStyle(fontSize: 12, color: Colors.grey)),
                     ]),
                   ),
                 ),

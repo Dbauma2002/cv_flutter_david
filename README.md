@@ -1,34 +1,27 @@
 # CV Flutter — David
 
-Application mobile Flutter présentant un CV personnel, les membres de la famille et les coordonnées de contact.
+Application mobile Flutter présentant le CV de Mushumo Bauma David, sa famille et ses coordonnées.
 
 ## Fonctionnalités
 
 - Page de connexion avec identifiant et mot de passe masqué
-- Validation du formulaire avant accès
-- Page d'accueil contenant le profil, la formation, les expériences, les compétences, les langues et les centres d'intérêt
-- Page famille présentant les membres sous forme de cartes/listes
-- Page contact avec téléphone, e-mail, adresse et réseaux sociaux
-- BottomNavigationBar et Drawer pour naviguer facilement
-- Interfaces responsive (mobile et écran large)
+- Validation des champs et authentification locale
+- CV complet : profil, formation, expériences, compétences techniques et linguistiques
+- Liste responsive des membres de la famille
+- Coordonnées cliquables : appel, e-mail, adresse, LinkedIn et GitHub
+- Navigation Material 3 avec onglets et bouton de déconnexion
 
-## Captures d'écran
+## Technologies
 
-### 1. Connexion
+- Flutter
+- Dart
+- Material 3
+- url_launcher
 
-![Page de connexion](docs/screenshots/login.svg)
+## Identifiants de test
 
-### 2. Accueil / CV
-
-![Page du CV](docs/screenshots/cv.svg)
-
-### 3. Famille
-
-![Page famille](docs/screenshots/famille.svg)
-
-### 4. Contact
-
-![Page contact](docs/screenshots/contact.svg)
+- Identifiant : `admin`
+- Mot de passe : `1234`
 
 ## Lancement
 
@@ -37,19 +30,40 @@ flutter pub get
 flutter run
 ```
 
-Sur la page de connexion, tout identifiant et mot de passe non vides permettent l'accès à l'application.
+Pour lancer directement dans Chrome :
 
-## Technologies
+```powershell
+flutter run -d chrome --disable-dds
+```
 
-- Flutter
-- Dart
-- Material 3
+## Captures d'écran
+
+![Connexion](docs/screenshots/connexion.png)
+
+![Accueil](docs/screenshots/accueil.png)
+
+![Famille](docs/screenshots/famille.png)
+
+![Contact](docs/screenshots/contact.png)
 
 ## Personnalisation
 
-Les informations sont centralisées dans les fichiers de `lib/` :
+Remplacer les fichiers temporaires suivants par les vraies photos :
 
-- `lib/cv_page.dart` : informations du CV
-- `lib/family_page.dart` : membres de la famille
-- `lib/contact_page.dart` : coordonnées
-- `lib/login_page.dart` : formulaire de connexion
+- `assets/images/moi.jpg`
+- `assets/images/pere.jpg`
+- `assets/images/mere.jpg`
+- `assets/images/frere.jpg`
+- `assets/images/soeur.jpg`
+
+Remplacer ensuite les quatre captures fictives ou absentes par les captures réelles dans `docs/screenshots/`.
+
+## Publication GitHub
+
+```powershell
+git add .
+git commit -m "Application CV Flutter"
+git branch -M main
+git remote add origin https://github.com/davidr-bauma/cv_flutter_david.git
+git push -u origin main
+```
