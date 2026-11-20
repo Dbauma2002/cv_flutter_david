@@ -18,12 +18,16 @@ class _LoginPageState extends State<LoginPage> {
   void _connect() {
     if (!_formKey.currentState!.validate()) return;
 
-    if (_identifierController.text.trim() == 'admin' && _passwordController.text == '1234') {
-      Navigator.of(context).pushReplacement(PageRouteBuilder(
-        pageBuilder: (_, animation, __) => const MainShell(),
-        transitionsBuilder: (_, animation, __, child) => FadeTransition(opacity: animation, child: child),
-        transitionDuration: const Duration(milliseconds: 550),
-      ));
+    if (_identifierController.text.trim() == 'admin' &&
+        _passwordController.text == '1234') {
+      Navigator.of(context).pushReplacement(
+        PageRouteBuilder(
+          pageBuilder: (_, animation, __) => const MainShell(),
+          transitionsBuilder: (_, animation, __, child) =>
+              FadeTransition(opacity: animation, child: child),
+          transitionDuration: const Duration(milliseconds: 550),
+        ),
+      );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Identifiant ou mot de passe incorrect')),
@@ -49,7 +53,11 @@ class _LoginPageState extends State<LoginPage> {
               gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xFF090C12), Color(0xFF111827), Color(0xFF1B1231)],
+                colors: [
+                  Color(0xFF090C12),
+                  Color(0xFF111827),
+                  Color(0xFF1B1231),
+                ],
               ),
             ),
             child: SizedBox.expand(),
@@ -60,7 +68,10 @@ class _LoginPageState extends State<LoginPage> {
             child: Container(
               width: 260,
               height: 260,
-              decoration: BoxDecoration(shape: BoxShape.circle, color: AppTheme.violet.withValues(alpha: 0.12)),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppTheme.violet.withValues(alpha: 0.12),
+              ),
             ),
           ),
           Positioned(
@@ -69,7 +80,10 @@ class _LoginPageState extends State<LoginPage> {
             child: Container(
               width: 330,
               height: 330,
-              decoration: BoxDecoration(shape: BoxShape.circle, color: AppTheme.violet.withValues(alpha: 0.10)),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: AppTheme.violet.withValues(alpha: 0.10),
+              ),
             ),
           ),
           Center(
@@ -98,8 +112,18 @@ class _LoginPageState extends State<LoginPage> {
                             padding: const EdgeInsets.all(4),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              gradient: const LinearGradient(colors: [AppTheme.violet, AppTheme.blue]),
-                              boxShadow: [BoxShadow(color: AppTheme.violet.withValues(alpha: 0.35), blurRadius: 24, offset: const Offset(0, 10))],
+                              gradient: const LinearGradient(
+                                colors: [AppTheme.violet, AppTheme.blue],
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: AppTheme.violet.withValues(
+                                    alpha: 0.35,
+                                  ),
+                                  blurRadius: 24,
+                                  offset: const Offset(0, 10),
+                                ),
+                              ],
                             ),
                             child: ClipOval(
                               child: Image.asset(
@@ -107,22 +131,43 @@ class _LoginPageState extends State<LoginPage> {
                                 fit: BoxFit.cover,
                                 errorBuilder: (_, __, ___) => const ColoredBox(
                                   color: Color(0xFF2A3040),
-                                  child: Icon(Icons.person, size: 58, color: Colors.white70),
+                                  child: Icon(
+                                    Icons.person,
+                                    size: 58,
+                                    color: Colors.white70,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                           const SizedBox(height: 22),
-                          const Text('Bienvenue', style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800, color: Colors.white)),
+                          const Text(
+                            'Bienvenue',
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white,
+                            ),
+                          ),
                           const SizedBox(height: 7),
-                          const Text('Connectez-vous pour découvrir mon CV', textAlign: TextAlign.center, style: TextStyle(color: Color(0xFFADB4C4))),
+                          const Text(
+                            'Connectez-vous pour découvrir mon CV',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Color(0xFFADB4C4)),
+                          ),
                           const SizedBox(height: 28),
                           TextFormField(
                             controller: _identifierController,
                             style: const TextStyle(color: Colors.white),
                             textInputAction: TextInputAction.next,
-                            decoration: _darkInputDecoration('Identifiant', Icons.person_outline),
-                            validator: (value) => value == null || value.trim().isEmpty ? 'Veuillez saisir l’identifiant' : null,
+                            decoration: _darkInputDecoration(
+                              'Identifiant',
+                              Icons.person_outline,
+                            ),
+                            validator: (value) =>
+                                value == null || value.trim().isEmpty
+                                ? 'Veuillez saisir l’identifiant'
+                                : null,
                           ),
                           const SizedBox(height: 16),
                           TextFormField(
@@ -131,14 +176,30 @@ class _LoginPageState extends State<LoginPage> {
                             style: const TextStyle(color: Colors.white),
                             textInputAction: TextInputAction.done,
                             onFieldSubmitted: (_) => _connect(),
-                            decoration: _darkInputDecoration('Mot de passe', Icons.lock_outline).copyWith(
-                              suffixIcon: IconButton(
-                                tooltip: _obscurePassword ? 'Afficher le mot de passe' : 'Masquer le mot de passe',
-                                icon: Icon(_obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: const Color(0xFFADB4C4)),
-                                onPressed: () => setState(() => _obscurePassword = !_obscurePassword),
-                              ),
-                            ),
-                            validator: (value) => value == null || value.isEmpty ? 'Veuillez saisir le mot de passe' : null,
+                            decoration:
+                                _darkInputDecoration(
+                                  'Mot de passe',
+                                  Icons.lock_outline,
+                                ).copyWith(
+                                  suffixIcon: IconButton(
+                                    tooltip: _obscurePassword
+                                        ? 'Afficher le mot de passe'
+                                        : 'Masquer le mot de passe',
+                                    icon: Icon(
+                                      _obscurePassword
+                                          ? Icons.visibility_off_outlined
+                                          : Icons.visibility_outlined,
+                                      color: const Color(0xFFADB4C4),
+                                    ),
+                                    onPressed: () => setState(
+                                      () =>
+                                          _obscurePassword = !_obscurePassword,
+                                    ),
+                                  ),
+                                ),
+                            validator: (value) => value == null || value.isEmpty
+                                ? 'Veuillez saisir le mot de passe'
+                                : null,
                           ),
                           const SizedBox(height: 24),
                           SizedBox(
@@ -150,10 +211,24 @@ class _LoginPageState extends State<LoginPage> {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppTheme.violet,
                                 foregroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
                                 elevation: 4,
                               ),
-                              label: const Text('Se connecter', style: TextStyle(fontWeight: FontWeight.w700)),
+                              label: const Text(
+                                'Se connecter',
+                                style: TextStyle(fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Identifiant : admin\nMot de passe : 1234',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: Colors.white70,
+                              height: 1.6,
                             ),
                           ),
                         ],
