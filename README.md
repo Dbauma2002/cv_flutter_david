@@ -38,13 +38,17 @@ flutter run -d chrome --disable-dds
 
 ## Captures d'écran
 
-![Connexion](docs/screenshots/connexion.png)
+![Connexion](docs/screenshots/<img width="487" height="826" alt="login" src="https://github.com/user-attachments/assets/d902e5ea-7c80-4768-b32c-f07512f1d900" />
+)
 
-![Accueil](docs/screenshots/accueil.png)
+![Accueil](docs/screenshots/<img width="489" height="835" alt="cv" src="https://github.com/user-attachments/assets/dd48634a-5ea3-4918-b4e3-0f1b4fe5cb62" />
+)
 
-![Famille](docs/screenshots/famille.png)
+![Famille](docs/screenshots/<img width="477" height="823" alt="famille" src="https://github.com/user-attachments/assets/3d0c74f8-faed-41e8-8745-e482105a607e" />
+)
 
-![Contact](docs/screenshots/contact.png)
+![Contact](docs/screenshots/<img width="490" height="833" alt="contact" src="https://github.com/user-attachments/assets/4e4d1ad4-2b9d-49c2-a9ce-e01b8ce74cb4" />
+)
 
 ## Personnalisation
 
