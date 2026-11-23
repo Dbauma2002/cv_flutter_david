@@ -1,4 +1,12 @@
-# CV Flutter David — TP2
+# CV Flutter David — TP1 et TP2
+
+## TP1 — Application Flutter
+
+La première version présente le CV, la famille et les coordonnées de David.
+Elle comprend une page de connexion simulée, ainsi qu’une navigation par
+Drawer et BottomNavigationBar.
+
+## TP2 — API REST et authentification
 
 Application Flutter de présentation du CV, connectée à une API REST Flask.
 L’API utilise PostgreSQL sur Supabase, bcrypt pour les mots de passe et des
@@ -94,18 +102,4 @@ flutter run -d chrome --dart-define=API_BASE_URL=http://127.0.0.1:5000/api
 Si Flutter indique que les plugins nécessitent la prise en charge des liens
 symboliques sous Windows, active le **Mode développeur** dans les paramètres
 Windows, puis relance `flutter pub get`.
-
-<<<<<<< HEAD
-![Connexion](docs/screenshots/<img width="487" height="826" alt="login" src="https://github.com/user-attachments/assets/d902e5ea-7c80-4768-b32c-f07512f1d900" />
-)
-
-![Accueil](docs/screenshots/<img width="489" height="835" alt="cv" src="https://github.com/user-attachments/assets/dd48634a-5ea3-4918-b4e3-0f1b4fe5cb62" />
-)
-
-![Famille](docs/screenshots/<img width="477" height="823" alt="famille" src="https://github.com/user-attachments/assets/3d0c74f8-faed-41e8-8745-e482105a607e" />
-)
-
-![Contact](docs/screenshots/<img width="490" height="833" alt="contact" src="https://github.com/user-attachments/assets/4e4d1ad4-2b9d-49c2-a9ce-e01b8ce74cb4" />
-)
-=======
 
