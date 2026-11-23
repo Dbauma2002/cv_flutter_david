@@ -113,3 +113,9 @@ Si Flutter indique que les plugins nécessitent la prise en charge des liens
 symboliques sous Windows, active le **Mode développeur** dans les paramètres
 Windows, puis relance `flutter pub get`.
 
+## Vidéo de démonstration — TP2
+
+Remplace le texte ci-dessous par le lien YouTube de ta démonstration :
+
+`COLLER_ICI_LE_LIEN_YOUTUBE`
+
