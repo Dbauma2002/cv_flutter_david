@@ -6,6 +6,16 @@ La première version présente le CV, la famille et les coordonnées de David.
 Elle comprend une page de connexion simulée, ainsi qu’une navigation par
 Drawer et BottomNavigationBar.
 
+### Captures d’écran du TP1
+
+![Connexion TP1](https://github.com/user-attachments/assets/d902e5ea-7c80-4768-b32c-f07512f1d900)
+
+![CV TP1](https://github.com/user-attachments/assets/dd48634a-5ea3-4918-b4e3-0f1b4fe5cb62)
+
+![Famille TP1](https://github.com/user-attachments/assets/3d0c74f8-faed-41e8-8745-e482105a607e)
+
+![Contact TP1](https://github.com/user-attachments/assets/4e4d1ad4-2b9d-49c2-a9ce-e01b8ce74cb4)
+
 ## TP2 — API REST et authentification
 
 Application Flutter de présentation du CV, connectée à une API REST Flask.
