@@ -115,7 +115,8 @@ Windows, puis relance `flutter pub get`.
 
 ## Vidéo de démonstration — TP2
 
-Remplace le texte ci-dessous par le lien YouTube de ta démonstration :
+Dépose le fichier vidéo MP4 de démonstration dans :
+`docs/videos/tp2-demo.mp4`.
 
-`COLLER_ICI_LE_LIEN_YOUTUBE`
+Le fichier vidéo n’est pas encore présent dans le dépôt.
 
