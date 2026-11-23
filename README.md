@@ -115,9 +115,8 @@ Windows, puis relance `flutter pub get`.
 
 ## Vidéo de démonstration — TP2
 
-Dépose le fichier vidéo MP4 de démonstration dans :
-`docs/videos/tp2-demo.mp4`.
+La vidéo de démonstration TP2 est disponible ici :
+`docs/videos/tp2-demo.webm`.
 
-Lien provisoire — il fonctionnera après l’ajout et le push du fichier MP4 :
-[Télécharger la vidéo TP2](https://raw.githubusercontent.com/Dbauma2002/cv_flutter_david/main/docs/videos/tp2-demo.mp4)
+[Télécharger la vidéo TP2](https://raw.githubusercontent.com/Dbauma2002/cv_flutter_david/main/docs/videos/tp2-demo.webm)
 
