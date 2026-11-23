@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import '../services/api_exception.dart';
+import '../services/api_service.dart';
 import '../theme/app_theme.dart';
-import '../widgets/main_shell.dart';
+import 'main_navigation.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,34 +16,67 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final _identifierController = TextEditingController();
+  final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+  final _api = ApiService();
   bool _obscurePassword = true;
+  bool _isRegistering = false;
+  bool _isSubmitting = false;
 
-  void _connect() {
+  Future<void> _connect() async {
     if (!_formKey.currentState!.validate()) return;
 
-    if (_identifierController.text.trim() == 'admin' &&
-        _passwordController.text == '1234') {
+    setState(() => _isSubmitting = true);
+    try {
+      final email = _emailController.text.trim();
+      final password = _passwordController.text;
+      if (_isRegistering) {
+        await _api.register(email, password);
+      }
+      await _api.login(email, password);
+
+      if (!mounted) return;
       Navigator.of(context).pushReplacement(
         PageRouteBuilder(
-          pageBuilder: (_, animation, __) => const MainShell(),
+          pageBuilder: (_, animation, __) => const MainNavigation(),
           transitionsBuilder: (_, animation, __, child) =>
               FadeTransition(opacity: animation, child: child),
           transitionDuration: const Duration(milliseconds: 550),
         ),
       );
-    } else {
+    } on ApiException catch (error) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(error.message)));
+    } on TimeoutException {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Identifiant ou mot de passe incorrect')),
+        const SnackBar(
+          content: Text('Le serveur met trop de temps à répondre.'),
+        ),
       );
+    } on http.ClientException {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Impossible de joindre le serveur. Vérifiez qu’il est démarré.',
+          ),
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _isSubmitting = false);
     }
   }
 
   @override
   void dispose() {
-    _identifierController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _api.close();
     super.dispose();
   }
 
@@ -150,23 +188,26 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           const SizedBox(height: 7),
-                          const Text(
-                            'Connectez-vous pour découvrir mon CV',
+                          Text(
+                            _isRegistering
+                                ? 'Créez un compte pour découvrir mon CV'
+                                : 'Connectez-vous pour découvrir mon CV',
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Color(0xFFADB4C4)),
                           ),
                           const SizedBox(height: 28),
                           TextFormField(
-                            controller: _identifierController,
+                            controller: _emailController,
                             style: const TextStyle(color: Colors.white),
+                            keyboardType: TextInputType.emailAddress,
                             textInputAction: TextInputAction.next,
                             decoration: _darkInputDecoration(
-                              'Identifiant',
+                              'Adresse e-mail',
                               Icons.person_outline,
                             ),
                             validator: (value) =>
                                 value == null || value.trim().isEmpty
-                                ? 'Veuillez saisir l’identifiant'
+                                ? 'Veuillez saisir votre adresse e-mail'
                                 : null,
                           ),
                           const SizedBox(height: 16),
@@ -197,17 +238,54 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ),
                                 ),
-                            validator: (value) => value == null || value.isEmpty
-                                ? 'Veuillez saisir le mot de passe'
-                                : null,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Veuillez saisir le mot de passe';
+                              }
+                              if (_isRegistering && value.length < 8) {
+                                return 'Le mot de passe doit contenir au moins 8 caractères';
+                              }
+                              return null;
+                            },
                           ),
+                          if (_isRegistering) ...[
+                            const SizedBox(height: 16),
+                            TextFormField(
+                              controller: _confirmPasswordController,
+                              obscureText: _obscurePassword,
+                              style: const TextStyle(color: Colors.white),
+                              textInputAction: TextInputAction.done,
+                              onFieldSubmitted: (_) => _connect(),
+                              decoration: _darkInputDecoration(
+                                'Confirmer le mot de passe',
+                                Icons.lock_outline,
+                              ),
+                              validator: (value) =>
+                                  value != _passwordController.text
+                                  ? 'Les mots de passe ne correspondent pas'
+                                  : null,
+                            ),
+                          ],
                           const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,
                             height: 54,
                             child: ElevatedButton.icon(
-                              onPressed: _connect,
-                              icon: const Icon(Icons.arrow_forward_rounded),
+                              onPressed: _isSubmitting ? null : _connect,
+                              icon: _isSubmitting
+                                  ? const SizedBox(
+                                      width: 20,
+                                      height: 20,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        color: Colors.white,
+                                      ),
+                                    )
+                                  : Icon(
+                                      _isRegistering
+                                          ? Icons.person_add_alt_1
+                                          : Icons.arrow_forward_rounded,
+                                    ),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppTheme.violet,
                                 foregroundColor: Colors.white,
@@ -216,19 +294,27 @@ class _LoginPageState extends State<LoginPage> {
                                 ),
                                 elevation: 4,
                               ),
-                              label: const Text(
-                                'Se connecter',
-                                style: TextStyle(fontWeight: FontWeight.w700),
+                              label: Text(
+                                _isRegistering
+                                    ? 'Créer mon compte'
+                                    : 'Se connecter',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                           ),
                           const SizedBox(height: 16),
-                          const Text(
-                            'Identifiant : admin\nMot de passe : 1234',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white70,
-                              height: 1.6,
+                          TextButton(
+                            onPressed: _isSubmitting
+                                ? null
+                                : () => setState(
+                                    () => _isRegistering = !_isRegistering,
+                                  ),
+                            child: Text(
+                              _isRegistering
+                                  ? 'J’ai déjà un compte : me connecter'
+                                  : 'Créer un nouveau compte',
                             ),
                           ),
                         ],

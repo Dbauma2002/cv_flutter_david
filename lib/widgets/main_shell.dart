@@ -3,6 +3,7 @@ import '../pages/login_page.dart';
 import '../pages/home_page.dart';
 import '../pages/family_page.dart';
 import '../pages/contact_page.dart';
+import '../services/api_service.dart';
 import '../theme/app_theme.dart';
 
 class MainShell extends StatefulWidget {
@@ -37,7 +38,9 @@ class _MainShellState extends State<MainShell> {
     setState(() => _currentIndex = _tabHistory.removeLast());
   }
 
-  void _logout() {
+  Future<void> _logout() async {
+    await ApiService.clearToken();
+    if (!mounted) return;
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         pageBuilder: (_, animation, __) => const LoginPage(),
